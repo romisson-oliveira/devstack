@@ -1,10 +1,7 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-
-export default function Home() {
+export default function BookId() {
     return (
         <div className="flex flex-col gap-4 min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-            <h2>Homepage</h2>
+            <h2>LivroId</h2>
             {/* <Button>
                 <Link href="/home">Go to Home</Link>
             </Button>
