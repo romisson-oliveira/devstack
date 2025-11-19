@@ -1,9 +1,11 @@
 // (Cuida do Header Desktop e do Header Mobile Superior)
 import Link from "next/link"
+import Image from "next/image"
 import { Search, Settings, Moon, Sun, LogIn, UserPlus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import DevStackLogo from "@/assets/devStackLogo2.png"
 
 // Definimos o tipo básico do usuário para não dar erro de TS
 interface User {
@@ -22,7 +24,13 @@ export function MainHeader({ user }: MainHeaderProps) {
                 {/* --- LADO ESQUERDO: LOGO (Mobile e Desktop) --- */}
                 <div className="flex items-center gap-4">
                     <Link href="/" className="text-xl font-bold text-primary">
-                        Dev Stack
+                        <Image
+                            src={DevStackLogo}
+                            alt="DevStack Logo"
+                            className="h-8 w-auto"
+                            // height={32}
+                            priority
+                        />
                     </Link>
 
                     {/* Links de Navegação (Apenas Desktop) */}

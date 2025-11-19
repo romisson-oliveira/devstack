@@ -87,7 +87,9 @@ export default function RootLayout({
 
                 {/* CONTEÚDO PRINCIPAL */}
                 {/* Adicionamos pb-20 no mobile para o conteúdo não ficar escondido atrás do menu fixo */}
-                <main className="min-h-screen pb-20 md:pb-0">{children}</main>
+                <main className="min-h-screen pb-20 md:pb-0 bg-[##c5baba]">
+                    {children}
+                </main>
 
                 {/* MENU INFERIOR (Apenas Mobile) */}
                 <BottomNav user={user} />
