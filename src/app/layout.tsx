@@ -1,18 +1,14 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Inter } from "next/font/google"
 import "./globals.css"
+import { MainHeader } from "@/components/layout/MainHeader"
+import { BottomNav } from "@/components/layout/BottomNav"
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
+const inter = Inter({
     subsets: ["latin"],
 })
 
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
-})
-
-export const metadata = {
+export const metadata: Metadata = {
     title: "Dev Stack – Biblioteca para Devs",
     description:
         "Plataforma colaborativa onde desenvolvedores descobrem, compartilham e discutem livros de tecnologia, programação e inovação.",
@@ -66,6 +62,18 @@ export const metadata = {
     },
 }
 
+// -- SIMULAÇÃO DA SESSÃO DO USUÁRIO --
+// No futuro, aqui você fará: const session = await auth();
+// Para testar LOGADO, descomente a linha abaixo:
+const user = {
+    name: "Romisson Oliveira",
+    image: "https://github.com/shadcn.png",
+}
+
+// Para testar DESLOGADO, deixe a variável como null:
+// const user = null
+// ------------------------------------
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -73,10 +81,16 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="pt-BR">
-            <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-            >
-                {children}
+            <body className={`${inter.className} antialiased`}>
+                {/* HEADER SUPERIOR (Cuida de Desktop e Mobile Top) */}
+                <MainHeader user={user} />
+
+                {/* CONTEÚDO PRINCIPAL */}
+                {/* Adicionamos pb-20 no mobile para o conteúdo não ficar escondido atrás do menu fixo */}
+                <main className="min-h-screen pb-20 md:pb-0">{children}</main>
+
+                {/* MENU INFERIOR (Apenas Mobile) */}
+                <BottomNav user={user} />
             </body>
         </html>
     )
