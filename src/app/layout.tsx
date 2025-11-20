@@ -1,8 +1,14 @@
 import "./globals.css"
 import type { Metadata } from "next"
 import { Roboto, Young_Serif, Inter } from "next/font/google"
+import localFont from "next/font/local"
 import { MainHeader } from "@/components/layout/MainHeader"
 import { BottomNav } from "@/components/layout/BottomNav"
+
+const goudy = localFont({
+    src: "../assets/fonts/GoudyBookletter1911-Regular.ttf",
+    variable: "--font-goudy",
+})
 
 const inter = Inter({
     subsets: ["latin"],
@@ -15,6 +21,7 @@ const roboto = Roboto({
 })
 
 const youngSerif = Young_Serif({
+    // Para usar esta fonte basta usar em css como 'font-serif'
     weight: "400",
     subsets: ["latin"],
     variable: "--font-young-serif",
@@ -94,7 +101,7 @@ export default function RootLayout({
     return (
         <html lang="pt-BR">
             <body
-                className={`${inter.className} ${roboto.variable} ${youngSerif.variable} antialiased`}
+                className={`${inter.className} ${roboto.variable} ${youngSerif.variable} ${goudy.variable} antialiased`}
             >
                 {/* HEADER SUPERIOR (Cuida de Desktop e Mobile Top) */}
                 <MainHeader user={user} />

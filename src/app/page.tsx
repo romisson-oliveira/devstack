@@ -13,10 +13,10 @@ export default async function Home() {
             <section className="w-full h-full flex flex-col items-center justify-center gap-4 text-center mb-10 rounded-2xl bg-[#d6d6d6] md:h-1/2">
                 <div className="w-8 h-8 bg-black mt-12"></div>
                 <div>
-                    <h2 className="text-3xl md:text-4xl font-bold leading-tight">
+                    <h2 className="text-3xl font-serif md:text-5xl font-bold leading-tight ">
                         Livros Dev&#39;s & Design
                     </h2>
-                    <h3 className="text-2xl font-light text-[#6B6B6B]">
+                    <h3 className="text-2xl font-light text-[#6B6B6B] font-goudy">
                         Poste, debata e tire dúvidas.
                     </h3>
                     <p className="pt-8 font-light text-sm text-black max-w-xs md:max-w-xs lg:max-w-sm">
