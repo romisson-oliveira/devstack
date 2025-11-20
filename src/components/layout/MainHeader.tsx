@@ -1,7 +1,7 @@
 // (Cuida do Header Desktop e do Header Mobile Superior)
 import Link from "next/link"
 import Image from "next/image"
-import { Search, Settings, Moon, Sun, LogIn, UserPlus } from "lucide-react"
+import { Search, Settings, Moon, Sun } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -19,7 +19,7 @@ interface MainHeaderProps {
 
 export function MainHeader({ user }: MainHeaderProps) {
     return (
-        <header className="w-full border-b bg-background">
+        <header className="w-full border-none bg-[#c6c2b8]">
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                 {/* --- LADO ESQUERDO: LOGO (Mobile e Desktop) --- */}
                 <div className="flex items-center gap-4">
@@ -50,44 +50,35 @@ export function MainHeader({ user }: MainHeaderProps) {
                         <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                         <Input
                             placeholder="Pesquisar livros..."
-                            className="pl-8"
+                            className="pl-8 border-none bg-[#cfccc3] outline-none shadow-2x1l"
                         />
                     </div>
                 </div>
 
                 {/* --- LADO DIREITO --- */}
                 <div className="flex items-center gap-4">
-                    {/* Botão Tema (Apenas Desktop por enquanto, ou ambos se quiser) */}
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="hidden md:flex"
-                    >
-                        <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                        <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                    </Button>
-
                     {/* LÓGICA DE USUÁRIO LOGADO */}
                     {user ? (
                         <>
                             {/* VISÃO DESKTOP: Avatar, Nome, Config */}
                             <div className="hidden md:flex items-center gap-3">
-                                <span className="text-sm font-medium">
-                                    {user.name}
-                                </span>
                                 <Link href="/profile">
-                                    <Button variant="ghost" size="icon">
-                                        <Settings className="h-5 w-5" />
-                                    </Button>
+                                    <div className="flex gap-3 items-center justify-between  bg-[#cfccc3] px-6 py-1 rounded-2xl">
+                                        <span className="text-sm font-medium">
+                                            {user.name}
+                                        </span>
+                                        <Avatar>
+                                            <AvatarImage
+                                                src={user.image || ""}
+                                            />
+                                            <AvatarFallback>
+                                                {user.name
+                                                    ?.substring(0, 2)
+                                                    .toUpperCase()}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                    </div>
                                 </Link>
-                                <Avatar>
-                                    <AvatarImage src={user.image || ""} />
-                                    <AvatarFallback>
-                                        {user.name
-                                            ?.substring(0, 2)
-                                            .toUpperCase()}
-                                    </AvatarFallback>
-                                </Avatar>
                             </div>
 
                             {/* VISÃO MOBILE (Topo): Apenas Avatar e Nome simplificado */}
@@ -114,6 +105,15 @@ export function MainHeader({ user }: MainHeaderProps) {
                             </Link>
                         </div>
                     )}
+                    {/* Botão Tema (Apenas Desktop por enquanto, ou ambos se quiser) */}
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="hidden md:flex"
+                    >
+                        <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                        <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                    </Button>
                 </div>
             </div>
         </header>
