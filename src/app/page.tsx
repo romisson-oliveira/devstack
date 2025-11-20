@@ -1,44 +1,12 @@
+import { Suspense } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { CircleArrowRight } from "lucide-react"
-import { Livro } from "@/types/schema"
+import { LivroList } from "@/components/LivroList"
+import { LivroSkeleton } from "@/components/LivroSkeleton"
 
-export default function Home() {
-    // Usando informações de Livros como teste
-    const livros: Livro[] = [
-        {
-            id: "1",
-            titulo: "Clean Code",
-            imagem: "https://picsum.photos/400/600?random=1",
-        },
-        {
-            id: "2",
-            titulo: "React Patterns",
-            imagem: "https://picsum.photos/400/600?random=2",
-        },
-        {
-            id: "3",
-            titulo: "Design Systems",
-            imagem: "https://picsum.photos/400/600?random=3",
-        },
-        {
-            id: "4",
-            titulo: "React Patterns",
-            imagem: "https://picsum.photos/400/600?random=4",
-        },
-        {
-            id: "5",
-            titulo: "Design Systems",
-            imagem: "https://picsum.photos/400/600?random=5",
-        },
-        {
-            id: "6",
-            titulo: "Design Systems",
-            imagem: "https://picsum.photos/400/600?random=6",
-        },
-    ]
-
+export default async function Home() {
     return (
         <div className="w-full overflow-x-hidden  bg-[#c6c2b8]">
             {/* Section Hero */}
@@ -72,24 +40,9 @@ export default function Home() {
 
             {/* Section Cards de Livros */}
             <section className="w-full min-h-40 p-4">
-                {livros ? (
-                    <div className="flex gap-5 items-center justify-center">
-                        {livros.map((livro) => (
-                            <Link key={livro.id} href={`/books/${livro.id}`}>
-                                <div className="relative w-32 h-48 md:w-20 md:h-30 lg:w-30 lg:h-45">
-                                    <Image
-                                        src={livro.imagem}
-                                        alt={livro.titulo}
-                                        fill
-                                        className="object-cover rounded"
-                                    />
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                ) : (
-                    <h1>Card vazio</h1>
-                )}
+                <Suspense fallback={<LivroSkeleton />}>
+                    <LivroList />
+                </Suspense>
             </section>
 
             {/* Section Últimos Lançamentos */}
