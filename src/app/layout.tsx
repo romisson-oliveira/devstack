@@ -1,11 +1,23 @@
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import "./globals.css"
+import type { Metadata } from "next"
+import { Roboto, Young_Serif, Inter } from "next/font/google"
 import { MainHeader } from "@/components/layout/MainHeader"
 import { BottomNav } from "@/components/layout/BottomNav"
 
 const inter = Inter({
     subsets: ["latin"],
+})
+
+const roboto = Roboto({
+    subsets: ["latin"],
+    weight: ["300", "400", "500", "700"],
+    variable: "--font-roboto",
+})
+
+const youngSerif = Young_Serif({
+    weight: "400",
+    subsets: ["latin"],
+    variable: "--font-young-serif",
 })
 
 export const metadata: Metadata = {
@@ -31,7 +43,7 @@ export const metadata: Metadata = {
         description:
             "Descubra, compartilhe e discuta livros essenciais para sua carreira de desenvolvimento.",
         type: "website",
-        // url: "https://seusite.com",
+        url: "https://devstack-tau-opal.vercel.app/",
         siteName: "Dev Stack",
         images: [
             {
@@ -43,13 +55,13 @@ export const metadata: Metadata = {
         ],
     },
 
-    twitter: {
-        card: "summary_large_image",
-        title: "Dev Stack – Biblioteca para Devs",
-        description:
-            "Plataforma da comunidade dev para explorar livros de tecnologia.",
-        images: ["/og-image.png"],
-    },
+    // twitter: {
+    //     card: "summary_large_image",
+    //     title: "Dev Stack – Biblioteca para Devs",
+    //     description:
+    //         "Plataforma da comunidade dev para explorar livros de tecnologia.",
+    //     images: ["/og-image.png"],
+    // },
 
     robots: {
         index: true,
@@ -58,7 +70,7 @@ export const metadata: Metadata = {
 
     icons: {
         icon: "/favicon.ico",
-        apple: "/apple-touch-icon.png",
+        // apple: "/apple-touch-icon.png",
     },
 }
 
@@ -81,7 +93,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="pt-BR">
-            <body className={`${inter.className} antialiased`}>
+            <body
+                className={`${inter.className} ${roboto.variable} ${youngSerif.variable} antialiased`}
+            >
                 {/* HEADER SUPERIOR (Cuida de Desktop e Mobile Top) */}
                 <MainHeader user={user} />
 
