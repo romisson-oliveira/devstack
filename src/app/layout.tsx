@@ -65,13 +65,13 @@ export const metadata: Metadata = {
 // -- SIMULAÇÃO DA SESSÃO DO USUÁRIO --
 // No futuro, aqui você fará: const session = await auth();
 // Para testar LOGADO, descomente a linha abaixo:
-const user = {
-    name: "Romisson Oliveira",
-    image: "https://github.com/shadcn.png",
-}
+// const user = {
+//     name: "Romisson Oliveira",
+//     image: "https://github.com/shadcn.png",
+// }
 
 // Para testar DESLOGADO, deixe a variável como null:
-// const user = null
+const user = null
 // ------------------------------------
 
 export default function RootLayout({

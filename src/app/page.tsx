@@ -2,9 +2,9 @@ import { Suspense } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { CircleArrowRight } from "lucide-react"
 import { LivroList } from "@/components/LivroList"
 import { LivroSkeleton } from "@/components/LivroSkeleton"
+import { LoginModal } from "@/components/LoginModal"
 
 export default async function Home() {
     return (
@@ -25,12 +25,11 @@ export default async function Home() {
                     </p>
                 </div>
                 <div className="flex flex-col gap-3 items-center justify-center">
-                    <Button asChild className="mr-4 flex items-center gap-2">
-                        <Link href="/login">
-                            Comece agora!
-                            <CircleArrowRight size={16} />
-                        </Link>
-                    </Button>
+                    <LoginModal
+                        textButton="Acesse agora"
+                        variantProps="default"
+                        icon={true}
+                    />
 
                     <Button variant="link" asChild className="">
                         <Link href="/register">Crie sua conta gratuita</Link>

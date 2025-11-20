@@ -13,7 +13,7 @@ interface BottomNavProps {
 
 export function BottomNav({ user }: BottomNavProps) {
     return (
-        <div className="fixed bottom-0 left-0 right-0 border-t bg-background h-16 md:hidden z-50">
+        <div className="fixed bottom-0 left-0 right-0 border-t bg-slate-300 h-16 md:hidden z-50">
             <nav className="grid grid-cols-5 h-full">
                 {/* 1. INÍCIO */}
                 <Link

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import DevStackLogo from "@/assets/devStackLogo2.png"
+import { LoginModal } from "@/components/LoginModal"
 
 // Definimos o tipo básico do usuário para não dar erro de TS
 interface User {
@@ -97,9 +98,10 @@ export function MainHeader({ user }: MainHeaderProps) {
                No mobile, os botões de entrar ficam na barra inferior conforme seu pedido
             */
                         <div className="hidden md:flex items-center gap-2">
-                            <Link href="/login">
-                                <Button variant="ghost">Entrar</Button>
-                            </Link>
+                            <LoginModal
+                                textButton="Entrar"
+                                variantProps="ghost"
+                            />
                             <Link href="/register">
                                 <Button>Cadastrar</Button>
                             </Link>
