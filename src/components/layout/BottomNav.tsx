@@ -26,7 +26,7 @@ export function BottomNav({ user }: BottomNavProps) {
 
                 {/* 2. LIVROS */}
                 <Link
-                    href="/livros"
+                    href="/books"
                     className="flex flex-col items-center justify-center text-xs gap-1 text-muted-foreground hover:text-primary"
                 >
                     <Book className="h-5 w-5" />

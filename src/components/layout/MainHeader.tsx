@@ -36,7 +36,7 @@ export function MainHeader({ user }: MainHeaderProps) {
 
                     {/* Links de Navegação (Apenas Desktop) */}
                     <nav className="hidden md:flex items-center gap-6 text-sm font-medium ml-6">
-                        <Link href="/livros" className="hover:text-primary">
+                        <Link href="/books" className="hover:text-primary">
                             Livros
                         </Link>
                         <Link href="/populares" className="hover:text-primary">
