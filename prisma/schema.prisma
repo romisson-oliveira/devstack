@@ -1,14 +1,197 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+// =========================================================
+// 1. AUTENTICAÇÃO (NextAuth.js)
+// =========================================================
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// =========================================================
+// 2. O USUÁRIO E A TURMA
+// =========================================================
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  role          Role      @default(STUDENT)
+  
+  cohortId      String?
+  cohort        Cohort?   @relation(fields: [cohortId], references: [id])
+  
+  checkIns      CheckIn[]
+  quizAttempts  QuizAttempt[]
+  accounts      Account[]
+  sessions      Session[]
+}
+
+enum Role {
+  STUDENT
+  MASTER
+  ADMIN
+}
+
+// =========================================================
+// 3. ESTRUTURA DO CURSO (Conteúdo)
+// =========================================================
+
+model Stack {
+  id          String   @id @default(cuid())
+  title       String
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  
+  sprints     Sprint[]
+  cohorts     Cohort[]
+}
+
+model Sprint {
+  id          String   @id @default(cuid())
+  title       String
+  sequence    Int
+  description String?
+  
+  stackId     String
+  stack       Stack    @relation(fields: [stackId], references: [id], onDelete: Cascade)
+  
+  materials   Material[]
+  quiz        Quiz?
+  checkIns    CheckIn[]
+}
+
+model Material {
+  id          String   @id @default(cuid())
+  title       String
+  type        MaterialType
+  url         String
+  
+  sprintId    String
+  sprint      Sprint   @relation(fields: [sprintId], references: [id])
+}
+
+enum MaterialType {
+  VIDEO
+  PDF
+  LINK
+  BOOK
+}
+
+// =========================================================
+// 4. EXECUÇÃO (Turmas e Entregas)
+// =========================================================
+
+model Cohort {
+  id        String   @id @default(cuid())
+  name      String
+  startDate DateTime
+  endDate   DateTime?
+  
+  stackId   String
+  stack     Stack    @relation(fields: [stackId], references: [id])
+  
+  users     User[]
+}
+
+model CheckIn {
+  id        String   @id @default(cuid())
+  content   String   @db.Text
+  link      String?
+  createdAt DateTime @default(now())
+  
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  sprintId  String
+  sprint    Sprint   @relation(fields: [sprintId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, sprintId]) 
+}
+
+// =========================================================
+// 5. MÓDULO QUIZ (Won't Have - Estrutura)
+// =========================================================
+
+model Quiz {
+  id          String   @id @default(cuid())
+  title       String
+  minScore    Int      @default(70)
+  
+  sprintId    String   @unique
+  sprint      Sprint   @relation(fields: [sprintId], references: [id])
+  
+  questions   Question[]
+  attempts    QuizAttempt[]
+}
+
+model Question {
+  id          String   @id @default(cuid())
+  text        String
+  
+  quizId      String
+  quiz        Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  
+  options     Option[]
+}
+
+model Option {
+  id          String   @id @default(cuid())
+  text        String
+  isCorrect   Boolean  @default(false)
+  
+  questionId  String
+  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+model QuizAttempt {
+  id          String   @id @default(cuid())
+  score       Int
+  passed      Boolean
+  createdAt   DateTime @default(now())
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  
+  quizId      String
+  quiz        Quiz     @relation(fields: [quizId], references: [id])
 }
