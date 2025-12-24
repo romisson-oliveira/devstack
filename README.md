@@ -25,6 +25,8 @@ O **Dev Stack** é uma plataforma SaaS de **Cohort-Based Learning** (Aprendizado
   - [💻 Tecnologias Utilizadas](#-tecnologias-utilizadas)
   - [🚀 Instalação e Execução](#-instalação-e-execução)
   - [🗺 Roadmap do Projeto](#-roadmap-do-projeto)
+  - [A Lógica da Estrutura](#a-lógica-da-estrutura)
+    - [Árvore da Estrutura](#árvore-da-estrutura)
   - [👥 Autores](#-autores)
 
 ---
@@ -141,6 +143,44 @@ Pré-requisitos: Node.js 18+ e NPM.
     -   [ ] Deploy Final
 
 ---
+
+## A Lógica da Estrutura
+
+**app/(auth)**: O parêntesis () cria um "Grupo de Rotas". Isso significa que não afeta a URL (não fica /auth/login, fica /login), mas permite que essas páginas tenham um layout diferente (sem sidebar, por exemplo).
+
+**app/(dashboard)**: Aqui fica a "Arena". Tudo aqui dentro partilha o layout com a Sidebar e Navbar do aluno.
+
+**lib/**: Onde ficam as configurações (o ficheiro do Prisma, utilitários de data, etc).
+
+**actions/**: O segredo da produtividade. Aqui ficam as funções de Backend (checkIn.ts, auth.ts) que o teu Frontend chama diretamente.
+
+### Árvore da Estrutura
+
+```
+src/
+├── actions/           <-- As tuas funções de Backend (Server Actions)
+│   └── check-in.ts    (Futuro)
+├── app/
+│   ├── (auth)/        <-- Grupo de Rotas de Autenticação
+│   │   ├── login/
+│   │   │   └── page.tsx
+│   │   └── layout.tsx (Layout limpo, sem sidebar)
+│   ├── (dashboard)/   <-- Grupo da Aplicação Principal
+│   │   ├── dashboard/
+│   │   │   └── page.tsx
+│   │   ├── feed/
+│   │   │   └── page.tsx
+│   │   └── layout.tsx (AQUI entra a tua Sidebar fixa)
+│   ├── globals.css
+│   ├── layout.tsx     (Root Layout - Fontes e Metadata)
+│   └── page.tsx       (Tua Landing Page)
+├── components/
+│   ├── ui/            <-- Componentes do Shadcn (Button, Card...)
+│   └── shared/        <-- Teus componentes (Sidebar, SprintCard...)
+├── lib/
+│   └── db.ts          <-- Configuração única do Prisma Client
+└── types/             <-- Definições de Tipos TypeScript
+```
 
 ## 👥 Autores
 
