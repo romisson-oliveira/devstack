@@ -1,36 +1,158 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Dev Stack: Engenharia de Conclusão
 
-## Getting Started
+![Status](https://img.shields.io/badge/Status-Em_Desenvolvimento-yellow)
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Prisma](https://img.shields.io/badge/Prisma-ORM-2d3748)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791)
+![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38bdf8)
 
-First, run the development server:
+> **"Não é sobre acesso ao conteúdo. É sobre a conclusão do estudo."**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+O **Dev Stack** é uma plataforma SaaS de **Cohort-Based Learning** (Aprendizado Baseado em Turmas) que utiliza metodologia Ágil (Scrum) para combater a evasão no ensino técnico. Diferente de LMS tradicionais, o foco não é hospedar vídeos, mas orquestrar o ritmo de estudo através de **Sprints**, **Check-ins obrigatórios** e **Pressão Social positiva**.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📋 Índice
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [🚀 Dev Stack: Engenharia de Conclusão](#-dev-stack-engenharia-de-conclusão)
+  - [📋 Índice](#-índice)
+  - [💡 O Problema e a Solução](#-o-problema-e-a-solução)
+  - [🌟 Funcionalidades Chave](#-funcionalidades-chave)
+    - [🎓 Para o Aluno](#-para-o-aluno)
+    - [🛡️ Para o Master (Instrutor)](#️-para-o-master-instrutor)
+  - [🏗 Arquitetura e Banco de Dados](#-arquitetura-e-banco-de-dados)
+  - [💻 Tecnologias Utilizadas](#-tecnologias-utilizadas)
+  - [🚀 Instalação e Execução](#-instalação-e-execução)
+  - [🗺 Roadmap do Projeto](#-roadmap-do-projeto)
+  - [👥 Autores](#-autores)
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 💡 O Problema e a Solução
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**O Problema:** Cursos online tradicionais (_Self-Paced_) sofrem com taxas de conclusão abaixo de 15%. O aluno estuda sozinho, sem prazos e sem comunidade, o que leva à desmotivação.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**A Solução (Dev Stack):**
+Aplicamos a "Engenharia de Conclusão":
 
-## Deploy on Vercel
+1.  **Cohorts (Turmas):** O aluno entra e segue o ritmo de um grupo.
+2.  **Sprints Semanais:** O conteúdo é liberado em ciclos curtos.
+3.  **Gating (Bloqueio):** A _Sprint 2_ só é liberada se o aluno fizer o **Check-in** (prova de estudo) da _Sprint 1_.
+4.  **Feed da Arena:** Um ambiente social onde os check-ins são compartilhados, gerando _accountability_.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🌟 Funcionalidades Chave
+
+### 🎓 Para o Aluno
+
+-   **Login Institucional (B2B):** Acesso simplificado para parceiros (ex: SENAI/Universidades).
+-   **Dashboard (A Arena):** Visualização clara da meta atual e status da turma.
+-   **Sistema de Check-in:** Envio de resumos ou links (GitHub/Drive) para validar aprendizado.
+-   **Feed Social:** Visualização do progresso dos colegas em tempo real.
+
+### 🛡️ Para o Master (Instrutor)
+
+-   **Criação de Stacks:** Definição de trilhas de aprendizado.
+-   **Gestão de Turmas:** Organização de alunos em coortes temporais.
+
+---
+
+## 🏗 Arquitetura e Banco de Dados
+
+O sistema é construído sobre uma arquitetura relacional robusta para garantir a integridade das regras de negócio (bloqueio de sprints).
+
+**Modelo Entidade-Relacionamento (Resumo):**
+
+-   **User:** Alunos e Masters.
+-   **Cohort:** A turma que vincula alunos a uma data e uma Stack.
+-   **Stack & Sprint:** A estrutura curricular (Conteúdo).
+-   **CheckIn:** O registro de validação que desbloqueia o progresso.
+
+_(Insira aqui a imagem do DER)_
+
+---
+
+## 💻 Tecnologias Utilizadas
+
+Este projeto utiliza uma stack moderna focada em performance e DX (Developer Experience):
+
+-   **Frontend:** [Next.js 15](https://nextjs.org/) (App Router), [React](https://react.dev/), [Tailwind CSS](https://tailwindcss.com/).
+-   **UI Components:** [Shadcn UI](https://ui.shadcn.com/) (Radix UI).
+-   **Backend:** Next.js Server Actions (API-less architecture).
+-   **Auth:** [NextAuth.js](https://next-auth.js.org/) (Auth.js).
+-   **Database:** [PostgreSQL](https://www.postgresql.org/) (Hospedado na Neon/Vercel).
+-   **ORM:** [Prisma](https://www.prisma.io/).
+-   **Deploy:** [Vercel](https://vercel.com/).
+
+---
+
+## 🚀 Instalação e Execução
+
+Pré-requisitos: Node.js 18+ e NPM.
+
+1.  **Clone o repositório:**
+
+    ```bash
+    git clone https://github.com/romisson-oliveira/devstack.git
+    cd devstack
+    ```
+
+2.  **Instale as dependências:**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Configure as variáveis de ambiente:**
+    Crie um arquivo `.env` na raiz e adicione sua URL do banco de dados:
+
+    ```env
+    DATABASE_URL="postgresql://usuario:senha@host:5432/nomedobanco"
+    NEXTAUTH_SECRET="sua-chave-secreta-aqui"
+    ```
+
+4.  **Sincronize o Banco de Dados (Prisma):**
+
+    ```bash
+    npx prisma db push
+    ```
+
+5.  **Rode o projeto:**
+    ```bash
+    npm run dev
+    ```
+    Acesse `http://localhost:3000`.
+
+---
+
+## 🗺 Roadmap do Projeto
+
+-   [x] **Sprint 1: Fundação**
+    -   [x] Setup Next.js + Shadcn
+    -   [ ] Modelagem do Banco (Prisma Schema)
+-   [ ] **Sprint 2: O Motor**
+    -   [ ] Autenticação (Login)
+    -   [ ] Dashboard do Aluno
+    -   [ ] Sistema de Check-in
+-   [ ] **Sprint 3: Social & MVP**
+    -   [ ] Feed da Turma
+    -   [ ] Deploy Final
+
+---
+
+## 👥 Autores
+
+Projeto desenvolvido como Trabalho de Conclusão de Curso (TCC).
+
+-   **Romisson Oliveira** - _Fullstack Developer & Tech Lead_
+-   **Samuel Serra** - _UI/UX Designer & Scrum Master_
+-   **Wilson Lins** - _Documentação_
+-   **Anderson Malheiros & João Melo** - _Pesquisa_
+
+---
+
+<p align="center">
+  Feito com 💙 e muito café ☕ para a entrega final.
+</p>
