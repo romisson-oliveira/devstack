@@ -133,9 +133,9 @@ Pré-requisitos: Node.js 18+ e NPM.
 
 -   [x] **Sprint 1: Fundação**
     -   [x] Setup Next.js + Shadcn
-    -   [ ] Modelagem do Banco (Prisma Schema)
--   [ ] **Sprint 2: O Motor**
-    -   [ ] Autenticação (Login)
+    -   [x] Modelagem do Banco (Prisma Schema)
+-   [x] **Sprint 2: O Motor**
+    -   [x] Autenticação (Login)
     -   [ ] Dashboard do Aluno
     -   [ ] Sistema de Check-in
 -   [ ] **Sprint 3: Social & MVP**
