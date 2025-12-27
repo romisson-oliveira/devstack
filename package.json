@@ -10,11 +10,14 @@
         "postinstall": "prisma generate"
     },
     "dependencies": {
+        "@auth/prisma-adapter": "^2.11.1",
         "@prisma/client": "^5.22.0",
+        "@tailwindcss/postcss": "^4.1.18",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "lucide-react": "^0.460.0",
         "next": "15.1.0",
+        "next-auth": "^5.0.0-beta.30",
         "react": "19.0.0",
         "react-dom": "19.0.0",
         "tailwind-merge": "^2.5.5",
@@ -24,12 +27,12 @@
         "@types/node": "^20",
         "@types/react": "^19",
         "@types/react-dom": "^19",
+        "autoprefixer": "^10.4.20",
         "eslint": "^9",
         "eslint-config-next": "15.1.0",
         "postcss": "^8",
-        "autoprefixer": "^10.4.20",
         "prisma": "^5.22.0",
-        "tailwindcss": "^3.4.17",
+        "tailwindcss": "^4.0.0",
         "typescript": "^5"
     }
 }
