@@ -3,26 +3,28 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL") // <--- Adicione esta linha
 }
+
 // =========================================================
 // 1. AUTENTICAÇÃO (NextAuth.js)
 // =========================================================
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String? @db.Text
-  access_token       String? @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String? @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -56,14 +58,14 @@ model User {
   emailVerified DateTime?
   image         String?
   role          Role      @default(STUDENT)
-  
-  cohortId      String?
-  cohort        Cohort?   @relation(fields: [cohortId], references: [id])
-  
-  checkIns      CheckIn[]
-  quizAttempts  QuizAttempt[]
-  accounts      Account[]
-  sessions      Session[]
+
+  cohortId String?
+  cohort   Cohort? @relation(fields: [cohortId], references: [id])
+
+  checkIns     CheckIn[]
+  quizAttempts QuizAttempt[]
+  accounts     Account[]
+  sessions     Session[]
 }
 
 enum Role {
@@ -81,33 +83,33 @@ model Stack {
   title       String
   description String?  @db.Text
   createdAt   DateTime @default(now())
-  
-  sprints     Sprint[]
-  cohorts     Cohort[]
+
+  sprints Sprint[]
+  cohorts Cohort[]
 }
 
 model Sprint {
-  id          String   @id @default(cuid())
+  id          String  @id @default(cuid())
   title       String
   sequence    Int
   description String?
-  
-  stackId     String
-  stack       Stack    @relation(fields: [stackId], references: [id], onDelete: Cascade)
-  
-  materials   Material[]
-  quiz        Quiz?
-  checkIns    CheckIn[]
+
+  stackId String
+  stack   Stack  @relation(fields: [stackId], references: [id], onDelete: Cascade)
+
+  materials Material[]
+  quiz      Quiz?
+  checkIns  CheckIn[]
 }
 
 model Material {
-  id          String   @id @default(cuid())
-  title       String
-  type        MaterialType
-  url         String
-  
-  sprintId    String
-  sprint      Sprint   @relation(fields: [sprintId], references: [id])
+  id    String       @id @default(cuid())
+  title String
+  type  MaterialType
+  url   String
+
+  sprintId String
+  sprint   Sprint @relation(fields: [sprintId], references: [id])
 }
 
 enum MaterialType {
@@ -122,15 +124,15 @@ enum MaterialType {
 // =========================================================
 
 model Cohort {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   name      String
   startDate DateTime
   endDate   DateTime?
-  
-  stackId   String
-  stack     Stack    @relation(fields: [stackId], references: [id])
-  
-  users     User[]
+
+  stackId String
+  stack   Stack  @relation(fields: [stackId], references: [id])
+
+  users User[]
 }
 
 model CheckIn {
@@ -138,14 +140,14 @@ model CheckIn {
   content   String   @db.Text
   link      String?
   createdAt DateTime @default(now())
-  
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  sprintId  String
-  sprint    Sprint   @relation(fields: [sprintId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, sprintId]) 
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  sprintId String
+  sprint   Sprint @relation(fields: [sprintId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, sprintId])
 }
 
 // =========================================================
@@ -153,45 +155,45 @@ model CheckIn {
 // =========================================================
 
 model Quiz {
-  id          String   @id @default(cuid())
-  title       String
-  minScore    Int      @default(70)
-  
-  sprintId    String   @unique
-  sprint      Sprint   @relation(fields: [sprintId], references: [id])
-  
-  questions   Question[]
-  attempts    QuizAttempt[]
+  id       String @id @default(cuid())
+  title    String
+  minScore Int    @default(70)
+
+  sprintId String @unique
+  sprint   Sprint @relation(fields: [sprintId], references: [id])
+
+  questions Question[]
+  attempts  QuizAttempt[]
 }
 
 model Question {
-  id          String   @id @default(cuid())
-  text        String
-  
-  quizId      String
-  quiz        Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
-  
-  options     Option[]
+  id   String @id @default(cuid())
+  text String
+
+  quizId String
+  quiz   Quiz   @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  options Option[]
 }
 
 model Option {
-  id          String   @id @default(cuid())
-  text        String
-  isCorrect   Boolean  @default(false)
-  
-  questionId  String
-  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  id        String  @id @default(cuid())
+  text      String
+  isCorrect Boolean @default(false)
+
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
 }
 
 model QuizAttempt {
-  id          String   @id @default(cuid())
-  score       Int
-  passed      Boolean
-  createdAt   DateTime @default(now())
-  
-  userId      String
-  user        User     @relation(fields: [userId], references: [id])
-  
-  quizId      String
-  quiz        Quiz     @relation(fields: [quizId], references: [id])
+  id        String   @id @default(cuid())
+  score     Int
+  passed    Boolean
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  quizId String
+  quiz   Quiz   @relation(fields: [quizId], references: [id])
 }
