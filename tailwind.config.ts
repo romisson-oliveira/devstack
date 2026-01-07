@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+import { fontFamily } from "tailwindcss/defaultTheme"
 
 const config = {
     darkMode: ["class"],
@@ -18,20 +19,38 @@ const config = {
             },
         },
         extend: {
+            // 1. Configuração das Fontes (conectando com o layout.tsx)
+            fontFamily: {
+                sans: ["var(--font-roboto)", ...fontFamily.sans],
+                serif: ["var(--font-young-serif)", ...fontFamily.serif],
+            },
+            // 2. Configuração das Cores
             colors: {
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
                 ring: "hsl(var(--ring))",
                 background: "hsl(var(--background))",
                 foreground: "hsl(var(--foreground))",
+
+                // --- SUAS CORES (BRAND) ---
+                brand: {
+                    dark: "#1C1A16", // Preto Charcoal
+                    orange: "#E55C3C", // Laranja Terra
+                    light: "#F5F5F7", // Fundo Off-white
+                },
+
+                // Sobrescrevendo o Primary do Shadcn para usar seu Laranja
                 primary: {
-                    DEFAULT: "hsl(var(--primary))",
-                    foreground: "hsl(var(--primary-foreground))",
+                    DEFAULT: "#E55C3C",
+                    foreground: "#FFFFFF",
                 },
+                // Sobrescrevendo o Secondary para usar seu Preto
                 secondary: {
-                    DEFAULT: "hsl(var(--secondary))",
-                    foreground: "hsl(var(--secondary-foreground))",
+                    DEFAULT: "#1C1A16",
+                    foreground: "#FFFFFF",
                 },
+                // ---------------------------
+
                 destructive: {
                     DEFAULT: "hsl(var(--destructive))",
                     foreground: "hsl(var(--destructive-foreground))",
